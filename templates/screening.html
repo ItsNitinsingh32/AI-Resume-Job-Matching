@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Screening - AI Resume Matcher</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .dashboard-btn {
+            background: #2563eb;
+        }
+
+        .logout {
+            background: #dc2626;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.85;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1050px;
+            margin: auto;
+            padding: 50px 25px;
+        }
+
+        .page-title {
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        /* RESUME CARD */
+
+        .resume-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            margin-bottom: 25px;
+        }
+
+        .resume-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .resume-icon {
+            width: 60px;
+            height: 60px;
+            background: #eff6ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .resume-info h3 {
+            margin-bottom: 6px;
+        }
+
+        .resume-info p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* SKILLS HEADER */
+
+        .skills-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .skills-header h2 {
+            font-size: 24px;
+        }
+
+        .skill-count {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* SKILLS */
+
+        .skills-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .skill {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            padding: 15px 18px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .skill-icon {
+            color: #2563eb;
+            font-size: 17px;
+        }
+
+        /* EMPTY */
+
+        .empty {
+            text-align: center;
+            padding: 45px 20px;
+            color: #6b7280;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        /* ACTIONS */
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary {
+            background: #111827;
+            color: white;
+        }
+
+        .action-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resume-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🤖 AI Resume Matcher
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/dashboard" class="dashboard-btn">
+                Dashboard
+            </a>
+
+            <a href="/logout" class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+        <div class="page-title">
+
+            <h1>
+                🔍 Resume Screening
+            </h1>
+
+            <p>
+                AI-powered analysis of your resume skills.
+            </p>
+
+        </div>
+
+
+        <!-- RESUME -->
+
+        <div class="resume-card">
+
+            <div class="resume-info">
+
+                <div class="resume-icon">
+                    📄
+                </div>
+
+                <div>
+
+                    <h3>
+                        {{ filename }}
+                    </h3>
+
+                    <p>
+                        Resume successfully analyzed
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="skills-card">
+
+            <div class="skills-header">
+
+                <h2>
+                    Detected Skills
+                </h2>
+
+                <span class="skill-count">
+                    {{ skills|length }} Skills
+                </span>
+
+            </div>
+
+
+            {% if skills %}
+
+            <div class="skills-grid">
+
+                {% for skill in skills %}
+
+                <div class="skill">
+
+                    <span class="skill-icon">
+                        ✓
+                    </span>
+
+                    <span>
+                        {{ skill|title }}
+                    </span>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🔎
+                </div>
+
+                <p>
+                    No supported skills were detected in your resume.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="actions">
+
+            <a
+                href="/jobs"
+                class="action-btn primary">
+                🎯 Find Matching Jobs
+            </a>
+
+            <a
+                href="/dashboard"
+                class="action-btn secondary">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        © 2026 AI Resume Screening & Job Matching System
+
+    </footer>
+
+</body>
+
+</html>

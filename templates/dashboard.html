@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - AI Resume Matcher</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .user-name {
+            color: #d1d5db;
+            font-size: 14px;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: white;
+            background: #dc2626;
+            padding: 9px 16px;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .logout:hover {
+            background: #b91c1c;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 45px 25px;
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: white;
+            padding: 35px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.18);
+        }
+
+        .welcome h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #dbeafe;
+            font-size: 16px;
+        }
+
+        /* SECTION TITLE */
+
+        .section-title {
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-size: 23px;
+        }
+
+        .section-title p {
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            padding: 27px;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+            transition: 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: #eff6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #6b7280;
+            line-height: 1.5;
+            min-height: 48px;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 18px;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        /* PROFILE CARD */
+
+        .profile-card {
+            margin-top: 25px;
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profile-info h3 {
+            margin-bottom: 6px;
+        }
+
+        .profile-info p {
+            color: #6b7280;
+        }
+
+        .profile-button {
+            text-decoration: none;
+            background: #111827;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 7px;
+        }
+
+        .profile-button:hover {
+            background: #374151;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .nav-right {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome h1 {
+                font-size: 27px;
+            }
+
+            .profile-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🤖 AI Resume Matcher
+        </div>
+
+        <div class="nav-right">
+
+            <span class="user-name">
+                Welcome, {{ session["user_name"] }}
+            </span>
+
+            <a href="/logout" class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome">
+
+            <h1>
+                Welcome to your Dashboard 👋
+            </h1>
+
+            <p>
+                Manage your resume, discover matching jobs
+                and track your applications from one place.
+            </p>
+
+        </section>
+
+
+        <!-- SECTION -->
+
+        <div class="section-title">
+
+            <h2>
+                Career Tools
+            </h2>
+
+            <p>
+                Choose an option to continue.
+            </p>
+
+        </div>
+
+
+        <!-- CARDS -->
+
+        <div class="cards">
+
+
+            <!-- UPLOAD -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Upload Resume
+                </h3>
+
+                <p>
+                    Upload your latest resume and let the
+                    system analyze your skills.
+                </p>
+
+                <a href="/upload_resume">
+                    Upload Resume →
+                </a>
+
+            </div>
+
+
+            <!-- SCREENING -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🔍
+                </div>
+
+                <h3>
+                    Resume Screening
+                </h3>
+
+                <p>
+                    View technical skills detected from
+                    your uploaded resume.
+                </p>
+
+                <a href="/screening">
+                    View Screening →
+                </a>
+
+            </div>
+
+
+            <!-- JOBS -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💼
+                </div>
+
+                <h3>
+                    Find Jobs
+                </h3>
+
+                <p>
+                    Discover job opportunities that match
+                    your resume skills.
+                </p>
+
+                <a href="/jobs">
+                    Find Matching Jobs →
+                </a>
+
+            </div>
+
+
+            <!-- APPLICATIONS -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📋
+                </div>
+
+                <h3>
+                    My Applications
+                </h3>
+
+                <p>
+                    View and track jobs you have applied for.
+                </p>
+
+                <a href="/my_applications">
+                    View Applications →
+                </a>
+
+            </div>
+
+
+            <!-- PROFILE -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    👤
+                </div>
+
+                <h3>
+                    My Profile
+                </h3>
+
+                <p>
+                    View your account information and
+                    profile details.
+                </p>
+
+                <a href="/profile">
+                    View Profile →
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- PROFILE QUICK ACCESS -->
+
+        <div class="profile-card">
+
+            <div class="profile-info">
+
+                <h3>
+                    👤 Your Account
+                </h3>
+
+                <p>
+                    Keep your account information up to date.
+                </p>
+
+            </div>
+
+            <a href="/profile" class="profile-button">
+                Manage Profile
+            </a>
+
+        </div>
+
+
+    </main>
+
+
+    <footer>
+
+        © 2026 AI Resume Screening & Job Matching System
+
+    </footer>
+
+</body>
+
+</html>

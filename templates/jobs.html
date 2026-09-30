@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Job Matches | AI Resume Matcher</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8ecf2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 19px;
+            font-weight: 700;
+            color: #18243a;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eef4ff;
+            border-radius: 10px;
+
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #5d687b;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .logout-btn {
+            background: #f1f4f8;
+            padding: 9px 15px;
+            border-radius: 8px;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            max-width: 1180px;
+            margin: auto;
+            padding: 50px 25px 70px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+
+            margin-bottom: 35px;
+        }
+
+        .header-left h1 {
+            font-size: 32px;
+            color: #172033;
+            margin-bottom: 9px;
+        }
+
+        .header-left p {
+            color: #737f92;
+            font-size: 15px;
+        }
+
+        .match-info {
+            background: #ffffff;
+            border: 1px solid #e7ebf1;
+
+            padding: 11px 17px;
+            border-radius: 9px;
+
+            color: #596579;
+            font-size: 13px;
+        }
+
+        /* ================= JOB CARD ================= */
+
+        .job-card {
+            background: #ffffff;
+
+            border: 1px solid #e6eaf0;
+            border-radius: 15px;
+
+            margin-bottom: 22px;
+
+            overflow: hidden;
+
+            transition: 0.25s;
+
+            box-shadow: 0 4px 15px rgba(25, 45, 80, 0.04);
+        }
+
+        .job-card:hover {
+            border-color: #cfd9ea;
+            box-shadow: 0 10px 30px rgba(25, 45, 80, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* Card top */
+
+        .job-main {
+            padding: 27px 30px 23px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .job-title {
+            font-size: 22px;
+            color: #172033;
+            margin-bottom: 9px;
+        }
+
+        .company {
+            color: #647086;
+            font-size: 14px;
+        }
+
+        .company strong {
+            color: #354158;
+        }
+
+        /* ================= MATCH SCORE ================= */
+
+        .score {
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 25px;
+            font-weight: 800;
+            color: #16a34a;
+        }
+
+        .score-label {
+            margin-top: 3px;
+            color: #7a8495;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        /* ================= PROGRESS ================= */
+
+        .progress-section {
+            margin-top: 22px;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+
+            font-size: 12px;
+            color: #697589;
+        }
+
+        .progress-container {
+            height: 7px;
+            background: #edf0f4;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: #16a34a;
+            border-radius: 10px;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .job-content {
+            border-top: 1px solid #eef1f5;
+            padding-top: 21px;
+            margin-top: 22px;
+        }
+
+        .content-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+
+            color: #7b8698;
+            font-weight: 700;
+
+            margin-bottom: 11px;
+        }
+
+        /* ================= SKILLS ================= */
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill {
+            padding: 6px 11px;
+
+            border-radius: 7px;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .matched {
+            background: #ecfdf3;
+            color: #15803d;
+            border: 1px solid #c9f2d7;
+        }
+
+        .missing {
+            background: #fff5f5;
+            color: #c24141;
+            border: 1px solid #f4d4d4;
+        }
+
+        .required {
+            background: #f5f7fa;
+            color: #526075;
+            border: 1px solid #e4e8ee;
+        }
+
+        /* ================= DESCRIPTION ================= */
+
+        .description {
+            color: #606c80;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .job-footer {
+            background: #fafbfd;
+
+            border-top: 1px solid #edf0f4;
+
+            padding: 16px 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .status {
+            font-size: 12px;
+            color: #687489;
+        }
+
+        .status span {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        .details-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            background: #2563eb;
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 17px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+        .details-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 15px;
+
+            padding: 60px 25px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .empty h2 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            color: #737f92;
+            font-size: 14px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .brand {
+                font-size: 16px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a:not(.logout-btn) {
+                display: none;
+            }
+
+            .page {
+                padding: 35px 15px;
+            }
+
+            .page-header {
+                display: block;
+            }
+
+            .header-left h1 {
+                font-size: 27px;
+            }
+
+            .match-info {
+                display: inline-block;
+                margin-top: 15px;
+            }
+
+            .job-main {
+                padding: 22px;
+            }
+
+            .job-header {
+                flex-direction: column;
+            }
+
+            .score {
+                text-align: left;
+            }
+
+            .job-footer {
+                padding: 15px 22px;
+            }
+
+            .status {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🤖
+            </div>
+
+            <span>AI Resume Matcher</span>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/my_applications">
+                Applications
+            </a>
+
+            <a href="/profile">
+                Profile
+            </a>
+
+            <a href="/logout" class="logout-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="page">
+
+        <div class="page-header">
+
+            <div class="header-left">
+
+                <h1>
+                    Job Matches
+                </h1>
+
+                <p>
+                    Opportunities matched with the skills detected in your resume.
+                </p>
+
+            </div>
+
+            <div class="match-info">
+                ✦ AI-powered skill matching
+            </div>
+
+        </div>
+
+
+        {% if jobs %}
+
+            {% for job in jobs %}
+
+                <!-- ================= JOB CARD ================= -->
+
+                <div class="job-card">
+
+                    <div class="job-main">
+
+                        <div class="job-header">
+
+                            <div>
+
+                                <h2 class="job-title">
+                                    {{ job[1] }}
+                                </h2>
+
+                                <div class="company">
+                                    <strong>Company:</strong>
+                                    {{ job[2] }}
+                                </div>
+
+                            </div>
+
+
+                            <!-- Match Score -->
+
+                            <div class="score">
+
+                                <div class="score-number">
+                                    {{ "%.0f"|format(job[7]) }}%
+                                </div>
+
+                                <div class="score-label">
+                                    Resume Match
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Progress -->
+
+                        <div class="progress-section">
+
+                            <div class="progress-top">
+
+                                <span>
+                                    Compatibility score
+                                </span>
+
+                                <span>
+                                    {{ "%.0f"|format(job[7]) }}%
+                                </span>
+
+                            </div>
+
+                            <div class="progress-container">
+
+                                <div
+                                    class="progress"
+                                    style="width: {{ job[7] }}%;">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Required Skills -->
+
+                        <div class="job-content">
+
+                            <div class="content-title">
+                                Required Skills
+                            </div>
+
+                            <div class="skills">
+
+                                {% for skill in job[3].split(",") %}
+
+                                    <span class="skill required">
+                                        {{ skill.strip()|title }}
+                                    </span>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Matched Skills -->
+
+                        <div class="job-content">
+
+                            <div class="content-title">
+                                ✓ Skills You Match
+                            </div>
+
+                            <div class="skills">
+
+                                {% if job[5] %}
+
+                                    {% for skill in job[5] %}
+
+                                        <span class="skill matched">
+                                            {{ skill|title }}
+                                        </span>
+
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <span class="skill missing">
+                                        No matching skills
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Missing Skills -->
+
+                        <div class="job-content">
+
+                            <div class="content-title">
+                                Skills To Develop
+                            </div>
+
+                            <div class="skills">
+
+                                {% if job[6] %}
+
+                                    {% for skill in job[6] %}
+
+                                        <span class="skill missing">
+                                            {{ skill|title }}
+                                        </span>
+
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <span class="skill matched">
+                                        ✓ You match all required skills
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Description -->
+
+                        <div class="job-content">
+
+                            <div class="content-title">
+                                Job Description
+                            </div>
+
+                            <div class="description">
+                                {{ job[4] }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Card Footer -->
+
+                    <div class="job-footer">
+
+                        <div class="status">
+
+                            Based on your uploaded resume
+
+                            <span>• Match calculated</span>
+
+                        </div>
+
+                        <a
+                            href="/job/{{ job[0] }}"
+                            class="details-btn"
+                        >
+                            View Job Details
+                            →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🔎
+                </div>
+
+                <h2>
+                    No Matching Jobs Found
+                </h2>
+
+                <p>
+                    Try uploading a resume with additional relevant skills.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ job[1] }} | Job Details</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8ecf2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 19px;
+            font-weight: 700;
+            color: #18243a;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eef4ff;
+            border-radius: 10px;
+
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #5d687b;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .logout-btn {
+            background: #f1f4f8;
+            padding: 9px 15px;
+            border-radius: 8px;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 25px 70px;
+        }
+
+        /* ================= BACK ================= */
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            text-decoration: none;
+            color: #64748b;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            margin-bottom: 22px;
+        }
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+
+        /* ================= HERO ================= */
+
+        .job-hero {
+            background: #ffffff;
+
+            border: 1px solid #e5e9f0;
+            border-radius: 16px;
+
+            padding: 35px;
+
+            box-shadow: 0 5px 20px rgba(25, 45, 80, 0.05);
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 30px;
+        }
+
+        .job-icon {
+            width: 58px;
+            height: 58px;
+
+            background: #eef4ff;
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+
+            margin-bottom: 18px;
+        }
+
+        .job-title {
+            font-size: 32px;
+            color: #172033;
+
+            margin-bottom: 12px;
+        }
+
+        .company {
+            font-size: 15px;
+            color: #687489;
+        }
+
+        .company strong {
+            color: #364258;
+        }
+
+        /* ================= APPLY ================= */
+
+        .apply-area {
+            min-width: 180px;
+        }
+
+        .apply-btn {
+            display: block;
+
+            width: 100%;
+
+            text-align: center;
+
+            background: #2563eb;
+            color: white;
+
+            text-decoration: none;
+
+            padding: 13px 20px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+        .apply-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .apply-note {
+            text-align: center;
+
+            color: #8a94a6;
+
+            font-size: 11px;
+
+            margin-top: 9px;
+        }
+
+        /* ================= CONTENT GRID ================= */
+
+        .content-grid {
+            display: grid;
+
+            grid-template-columns: 2fr 1fr;
+
+            gap: 22px;
+
+            margin-top: 22px;
+        }
+
+        /* ================= CARD ================= */
+
+        .card {
+            background: #ffffff;
+
+            border: 1px solid #e5e9f0;
+            border-radius: 15px;
+
+            padding: 28px;
+
+            box-shadow: 0 4px 15px rgba(25, 45, 80, 0.035);
+        }
+
+        .card-title {
+            font-size: 18px;
+
+            color: #172033;
+
+            margin-bottom: 18px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+        }
+
+        .card-title::before {
+            content: "";
+
+            width: 4px;
+            height: 20px;
+
+            background: #2563eb;
+
+            border-radius: 5px;
+        }
+
+        /* ================= DESCRIPTION ================= */
+
+        .description {
+            color: #5e6a7e;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+        }
+
+        /* ================= SKILLS ================= */
+
+        .skills {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+        }
+
+        .skill {
+            background: #f4f7fb;
+
+            color: #526075;
+
+            border: 1px solid #e1e6ed;
+
+            padding: 8px 12px;
+
+            border-radius: 7px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-item {
+            padding: 15px 0;
+
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 11px;
+
+            color: #8a94a6;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.6px;
+
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #26334a;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        /* ================= CTA ================= */
+
+        .apply-card {
+            margin-top: 22px;
+
+            background: #172033;
+
+            border-radius: 15px;
+
+            padding: 25px 28px;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .apply-card h3 {
+            font-size: 17px;
+
+            margin-bottom: 5px;
+        }
+
+        .apply-card p {
+            color: #aeb7c7;
+
+            font-size: 13px;
+        }
+
+        .apply-card .apply-btn {
+            width: auto;
+
+            white-space: nowrap;
+
+            background: #2563eb;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 750px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .brand {
+                font-size: 16px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a:not(.logout-btn) {
+                display: none;
+            }
+
+            .page {
+                padding: 30px 15px 50px;
+            }
+
+            .job-hero {
+                padding: 25px;
+            }
+
+            .hero-content {
+                flex-direction: column;
+            }
+
+            .job-title {
+                font-size: 26px;
+            }
+
+            .apply-area {
+                width: 100%;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .apply-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .apply-card .apply-btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🤖
+            </div>
+
+            <span>AI Resume Matcher</span>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/jobs">
+                Job Matches
+            </a>
+
+            <a href="/my_applications">
+                Applications
+            </a>
+
+            <a href="/profile">
+                Profile
+            </a>
+
+            <a href="/logout" class="logout-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="page">
+
+        <!-- Back -->
+
+        <a href="/jobs" class="back-link">
+            ← Back to Job Matches
+        </a>
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="job-hero">
+
+            <div class="hero-content">
+
+                <div>
+
+                    <div class="job-icon">
+                        💼
+                    </div>
+
+                    <h1 class="job-title">
+                        {{ job[1] }}
+                    </h1>
+
+                    <div class="company">
+                        <strong>Company:</strong>
+                        {{ job[2] }}
+                    </div>
+
+                </div>
+
+
+                <div class="apply-area">
+
+                    <a
+                        href="/apply/{{ job[0] }}"
+                        class="apply-btn"
+                    >
+                        Apply Now
+                    </a>
+
+                    <div class="apply-note">
+                        Submit your application
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <div class="content-grid">
+
+
+            <!-- LEFT -->
+
+            <div>
+
+                <!-- Description -->
+
+                <section class="card">
+
+                    <h2 class="card-title">
+                        Job Description
+                    </h2>
+
+                    <div class="description">
+
+                        {{ job[4] }}
+
+                    </div>
+
+                </section>
+
+
+                <!-- Skills -->
+
+                <section class="card" style="margin-top: 22px;">
+
+                    <h2 class="card-title">
+                        Required Skills
+                    </h2>
+
+                    <div class="skills">
+
+                        {% for skill in job[3].split(",") %}
+
+                            <span class="skill">
+                                {{ skill.strip()|title }}
+                            </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <aside>
+
+                <section class="card">
+
+                    <h2 class="card-title">
+                        Job Information
+                    </h2>
+
+
+                    <div class="info-item">
+
+                        <div class="info-label">
+                            Position
+                        </div>
+
+                        <div class="info-value">
+                            {{ job[1] }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-label">
+                            Company
+                        </div>
+
+                        <div class="info-value">
+                            {{ job[2] }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-label">
+                            Required Skills
+                        </div>
+
+                        <div class="info-value">
+                            {{ job[3].split(",")|length }} Skills
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-label">
+                            Application
+                        </div>
+
+                        <div class="info-value">
+                            Open
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Quick Apply -->
+
+                <section
+                    class="card"
+                    style="margin-top: 22px; text-align: center;"
+                >
+
+                    <div style="font-size: 30px; margin-bottom: 12px;">
+                        🚀
+                    </div>
+
+                    <h3 style="margin-bottom: 8px;">
+                        Interested in this role?
+                    </h3>
+
+                    <p style="
+                        color: #737f92;
+                        font-size: 13px;
+                        line-height: 1.6;
+                        margin-bottom: 18px;
+                    ">
+                        Apply now and track your application from your dashboard.
+                    </p>
+
+                    <a
+                        href="/apply/{{ job[0] }}"
+                        class="apply-btn"
+                    >
+                        Apply Now
+                    </a>
+
+                </section>
+
+            </aside>
+
+        </div>
+
+
+        <!-- ================= BOTTOM CTA ================= -->
+
+        <section class="apply-card">
+
+            <div>
+
+                <h3>
+                    Ready to apply?
+                </h3>
+
+                <p>
+                    Take the next step in your career.
+                </p>
+
+            </div>
+
+            <a
+                href="/apply/{{ job[0] }}"
+                class="apply-btn"
+            >
+                Apply for this Job →
+            </a>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Application Submitted | AI Resume Matcher</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8ecf2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 19px;
+            font-weight: 700;
+            color: #18243a;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eef4ff;
+            border-radius: 10px;
+
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #5d687b;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .logout {
+            background: #f1f4f8;
+            padding: 9px 15px;
+            border-radius: 8px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .page {
+            min-height: calc(100vh - 70px);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px 20px;
+        }
+
+        /* ================= SUCCESS CARD ================= */
+
+        .success-card {
+            width: 100%;
+            max-width: 600px;
+
+            background: #ffffff;
+
+            border: 1px solid #e4e9f0;
+
+            border-radius: 18px;
+
+            padding: 45px 40px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 35px rgba(25, 45, 80, 0.08);
+        }
+
+        /* ================= ICON ================= */
+
+        .success-icon {
+            width: 82px;
+            height: 82px;
+
+            margin: 0 auto 24px;
+
+            border-radius: 50%;
+
+            background: #ecfdf3;
+
+            border: 1px solid #c7f0d5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #16a34a;
+
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        /* ================= TEXT ================= */
+
+        .success-card h1 {
+            font-size: 28px;
+
+            color: #172033;
+
+            margin-bottom: 12px;
+        }
+
+        .success-card .main-text {
+            color: #667287;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            margin-bottom: 28px;
+        }
+
+        /* ================= STATUS ================= */
+
+        .status-box {
+            background: #f8fafc;
+
+            border: 1px solid #e5e9f0;
+
+            border-radius: 11px;
+
+            padding: 17px;
+
+            margin-bottom: 28px;
+        }
+
+        .status-label {
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+
+            color: #8993a5;
+
+            margin-bottom: 6px;
+        }
+
+        .status {
+            color: #16a34a;
+
+            font-size: 15px;
+
+            font-weight: 700;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+
+            text-decoration: none;
+
+            padding: 12px 19px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .primary:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary {
+            background: #f1f4f8;
+            color: #455268;
+        }
+
+        .secondary:hover {
+            background: #e5e9ef;
+        }
+
+        /* ================= NOTE ================= */
+
+        .note {
+            margin-top: 28px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #edf0f4;
+
+            color: #8a94a6;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .brand {
+                font-size: 16px;
+            }
+
+            .nav-links a:not(.logout) {
+                display: none;
+            }
+
+            .success-card {
+                padding: 35px 22px;
+            }
+
+            .success-card h1 {
+                font-size: 24px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🤖
+            </div>
+
+            <span>AI Resume Matcher</span>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/jobs">
+                Job Matches
+            </a>
+
+            <a href="/my_applications">
+                Applications
+            </a>
+
+            <a href="/profile">
+                Profile
+            </a>
+
+            <a href="/logout" class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="page">
+
+        <div class="success-card">
+
+
+            <!-- Success Icon -->
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+
+            <!-- Heading -->
+
+            <h1>
+                Application Submitted!
+            </h1>
+
+
+            <p class="main-text">
+
+                Your job application has been successfully submitted.
+                You can track the status of your application from
+                your applications dashboard.
+
+            </p>
+
+
+            <!-- Status -->
+
+            <div class="status-box">
+
+                <div class="status-label">
+                    Application Status
+                </div>
+
+                <div class="status">
+                    ✓ Applied
+                </div>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="buttons">
+
+                <a
+                    href="/my_applications"
+                    class="btn primary"
+                >
+                    View My Applications
+                </a>
+
+                <a
+                    href="/jobs"
+                    class="btn secondary"
+                >
+                    Browse More Jobs
+                </a>
+
+            </div>
+
+
+            <!-- Note -->
+
+            <div class="note">
+
+                You can check your application status anytime
+                from the <strong>My Applications</strong> section.
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

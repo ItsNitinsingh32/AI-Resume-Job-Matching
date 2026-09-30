@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registration Successful | AI Resume Matcher</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .success-card {
+            width: 100%;
+            max-width: 480px;
+
+            background: #ffffff;
+
+            border: 1px solid #e4e9f0;
+
+            border-radius: 18px;
+
+            padding: 42px 35px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 35px rgba(25, 45, 80, 0.08);
+        }
+
+        /* Success Icon */
+
+        .success-icon {
+            width: 76px;
+            height: 76px;
+
+            margin: 0 auto 24px;
+
+            border-radius: 50%;
+
+            background: #ecfdf3;
+
+            border: 1px solid #bbf7d0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 34px;
+        }
+
+        /* Heading */
+
+        h1 {
+            font-size: 27px;
+
+            color: #172033;
+
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #667085;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 28px;
+        }
+
+        /* Message */
+
+        .message-box {
+            background: #f8fafc;
+
+            border: 1px solid #e6eaf0;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            margin-bottom: 25px;
+
+            color: #596579;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        .message-box strong {
+            color: #26334a;
+        }
+
+        /* Button */
+
+        .login-btn {
+            display: inline-block;
+
+            width: 100%;
+
+            padding: 13px 20px;
+
+            background: #2563eb;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #1d4ed8;
+
+            transform: translateY(-1px);
+        }
+
+        /* Home link */
+
+        .home-link {
+            display: inline-block;
+
+            margin-top: 17px;
+
+            color: #687489;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+        .home-link:hover {
+            color: #2563eb;
+        }
+
+        /* Brand */
+
+        .brand {
+            margin-top: 30px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #edf0f4;
+
+            color: #8993a5;
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+        .brand span {
+            color: #2563eb;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .success-card {
+                padding: 35px 22px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .success-icon {
+                width: 68px;
+                height: 68px;
+
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="success-card">
+
+
+        <!-- Success Icon -->
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+
+        <!-- Heading -->
+
+        <h1>
+            Registration Successful!
+        </h1>
+
+
+        <p class="subtitle">
+            Your account has been created successfully.
+            You can now log in and start using the AI Resume Matcher.
+        </p>
+
+
+        <!-- Message -->
+
+        <div class="message-box">
+
+            <strong>Welcome aboard!</strong><br>
+
+            Your profile is ready. Upload your resume to
+            discover suitable job opportunities based on your skills.
+
+        </div>
+
+
+        <!-- Login Button -->
+
+        <a
+            href="/login"
+            class="login-btn"
+        >
+            Continue to Login
+        </a>
+
+
+        <!-- Home -->
+
+        <a
+            href="/"
+            class="home-link"
+        >
+            ← Back to Home
+        </a>
+
+
+        <!-- Brand -->
+
+        <div class="brand">
+
+            Powered by
+            <span>AI Resume Matcher</span>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

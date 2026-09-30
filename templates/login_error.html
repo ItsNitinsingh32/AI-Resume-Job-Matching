@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Failed</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+
+            background: linear-gradient(135deg, #fff7ed, #f8fafc);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 25px;
+        }
+
+        .error-card {
+            width: 100%;
+            max-width: 520px;
+
+            background: white;
+
+            padding: 50px 40px;
+
+            text-align: center;
+
+            border-radius: 18px;
+
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+        }
+
+        .error-icon {
+            width: 85px;
+            height: 85px;
+
+            margin: 0 auto 25px;
+
+            background: #fee2e2;
+            color: #dc2626;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 40px;
+        }
+
+        h1 {
+            color: #111827;
+            font-size: 29px;
+
+            margin-bottom: 14px;
+        }
+
+        .message {
+            color: #6b7280;
+
+            font-size: 16px;
+            line-height: 1.6;
+
+            margin-bottom: 30px;
+        }
+
+        .login-button {
+            display: block;
+
+            width: 100%;
+
+            background: #2563eb;
+            color: white;
+
+            text-decoration: none;
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+        .login-button:hover {
+            background: #1d4ed8;
+        }
+
+        .register-button {
+            display: block;
+
+            width: 100%;
+
+            background: #f3f4f6;
+            color: #374151;
+
+            text-decoration: none;
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .register-button:hover {
+            background: #e5e7eb;
+        }
+
+        .footer {
+            margin-top: 25px;
+
+            color: #9ca3af;
+
+            font-size: 13px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="error-card">
+
+        <div class="error-icon">
+            🔒
+        </div>
+
+        <h1>
+            Login Failed
+        </h1>
+
+        <p class="message">
+            The email address or password you entered is incorrect.
+            Please check your credentials and try again.
+        </p>
+
+        <a
+            href="/login"
+            class="login-button">
+            🔐 Try Login Again
+        </a>
+
+        <a
+            href="/register"
+            class="register-button">
+            Create New Account
+        </a>
+
+        <p class="footer">
+            © 2026 AI Resume Screening & Job Matching System
+        </p>
+
+    </div>
+
+</body>
+
+</html>

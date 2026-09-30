@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add New Job | Admin Panel</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 70px;
+
+            background: #172033;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #2563eb;
+
+            border-radius: 9px;
+
+            font-size: 19px;
+        }
+
+        .admin-badge {
+            color: #cbd5e1;
+
+            background: rgba(255,255,255,0.08);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            padding: 7px 11px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 42px 25px 70px;
+        }
+
+        /* ================= HEADER ================= */
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .back-link {
+            display: inline-block;
+
+            color: #687489;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            margin-bottom: 18px;
+        }
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+
+            color: #172033;
+
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #748095;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        /* ================= FORM CARD ================= */
+
+        .form-card {
+            background: #ffffff;
+
+            border: 1px solid #e4e9f0;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            box-shadow: 0 5px 20px rgba(25,45,80,0.045);
+        }
+
+        .form-header {
+            background: #fafbfd;
+
+            border-bottom: 1px solid #e8ecf2;
+
+            padding: 22px 28px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+        .form-icon {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eef4ff;
+
+            border-radius: 10px;
+
+            font-size: 20px;
+        }
+
+        .form-header h2 {
+            color: #172033;
+
+            font-size: 17px;
+
+            margin-bottom: 4px;
+        }
+
+        .form-header p {
+            color: #8993a5;
+
+            font-size: 11px;
+        }
+
+        /* ================= FORM ================= */
+
+        form {
+            padding: 30px 28px;
+        }
+
+        .form-row {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 21px;
+        }
+
+        .form-group label {
+            display: block;
+
+            color: #3d485c;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+
+            border: 1px solid #dfe4eb;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background: #fbfcfe;
+
+            color: #26334a;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+        .form-group input {
+            height: 46px;
+
+            padding: 0 13px;
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+
+            padding: 13px;
+
+            resize: vertical;
+
+            line-height: 1.6;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #2563eb;
+
+            background: #ffffff;
+
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #a1a9b6;
+        }
+
+        .help-text {
+            color: #8993a5;
+
+            font-size: 10px;
+
+            margin-top: 6px;
+
+            line-height: 1.5;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .form-actions {
+            border-top: 1px solid #edf0f4;
+
+            padding-top: 22px;
+
+            margin-top: 5px;
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .cancel-btn {
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #f5f7fa;
+
+            border: 1px solid #e0e5ec;
+
+            color: #596579;
+
+            padding: 10px 17px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+        .cancel-btn:hover {
+            background: #edf0f4;
+        }
+
+        .submit-btn {
+            border: none;
+
+            background: #2563eb;
+
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-box {
+            margin-top: 20px;
+
+            background: #ffffff;
+
+            border: 1px solid #e4e9f0;
+
+            border-radius: 12px;
+
+            padding: 18px 20px;
+
+            display: flex;
+
+            gap: 12px;
+
+            align-items: flex-start;
+        }
+
+        .info-icon {
+            font-size: 17px;
+        }
+
+        .info-box h3 {
+            color: #354158;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+        }
+
+        .info-box p {
+            color: #7a8495;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .admin-badge {
+                display: none;
+            }
+
+            .page {
+                padding: 30px 15px 50px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .form-header {
+                padding: 20px;
+            }
+
+            form {
+                padding: 25px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .cancel-btn,
+            .submit-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🤖
+            </div>
+
+            <span>
+                AI Resume Matcher
+            </span>
+
+        </div>
+
+
+        <div class="admin-badge">
+            Administrator
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="page">
+
+
+        <!-- Header -->
+
+        <div class="page-header">
+
+            <a
+                href="/admin_dashboard"
+                class="back-link"
+            >
+                ← Back to Admin Dashboard
+            </a>
+
+            <h1>
+                Add New Job
+            </h1>
+
+            <p>
+                Create a new job opportunity for candidates to discover
+                and apply for.
+            </p>
+
+        </div>
+
+
+        <!-- Form Card -->
+
+        <div class="form-card">
+
+
+            <div class="form-header">
+
+                <div class="form-icon">
+                    💼
+                </div>
+
+                <div>
+
+                    <h2>
+                        Job Information
+                    </h2>
+
+                    <p>
+                        Enter the details of the new job posting.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                method="POST"
+                action="/admin_add_job"
+            >
+
+
+                <!-- Title + Company -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="title">
+                            Job Title <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder="e.g. Python Developer"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="company">
+                            Company Name <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="company"
+                            name="company"
+                            placeholder="e.g. Tech Solutions"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Skills -->
+
+                <div class="form-group">
+
+                    <label for="required_skills">
+                        Required Skills <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="required_skills"
+                        name="required_skills"
+                        placeholder="python, flask, mysql, html, css, git"
+                        required
+                    >
+
+                    <div class="help-text">
+                        Separate each skill with a comma.
+                    </div>
+
+                </div>
+
+
+                <!-- Description -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Job Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Write a clear description of the job role, responsibilities and requirements..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Actions -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="/admin_jobs"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="submit-btn"
+                    >
+                        + Create Job Posting
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+        <!-- Info -->
+
+        <div class="info-box">
+
+            <div class="info-icon">
+                💡
+            </div>
+
+            <div>
+
+                <h3>
+                    Matching Tip
+                </h3>
+
+                <p>
+                    Add skills using comma-separated values.
+                    These skills are used by the resume matching system
+                    to calculate candidate-job compatibility.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>

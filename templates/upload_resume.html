@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Resume - AI Resume Matcher</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .dashboard-btn {
+            background: #2563eb;
+        }
+
+        .logout {
+            background: #dc2626;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.85;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            padding: 55px 25px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        /* UPLOAD CARD */
+
+        .upload-card {
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .upload-icon {
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 20px;
+            background: #eff6ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .upload-title {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .upload-description {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        /* FILE INPUT */
+
+        .file-area {
+            border: 2px dashed #bfdbfe;
+            background: #f8fbff;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .file-area label {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .file-area label:hover {
+            background: #1d4ed8;
+        }
+
+        .file-area input {
+            display: none;
+        }
+
+        .file-name {
+            margin-top: 15px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* BUTTON */
+
+        .upload-button {
+            width: 100%;
+            border: none;
+            background: #111827;
+            color: white;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .upload-button:hover {
+            background: #374151;
+        }
+
+        /* INFO */
+
+        .info-box {
+            margin-top: 25px;
+            padding: 18px;
+            background: #eff6ff;
+            border-radius: 10px;
+            color: #1e40af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* BACK */
+
+        .back {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .back a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .back a:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .upload-card {
+                padding: 25px;
+            }
+
+            .page-title h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🤖 AI Resume Matcher
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/dashboard" class="dashboard-btn">
+                Dashboard
+            </a>
+
+            <a href="/logout" class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+        <div class="page-title">
+
+            <h1>
+                Upload Your Resume
+            </h1>
+
+            <p>
+                Upload your resume and let our system analyze your skills.
+            </p>
+
+        </div>
+
+
+        <div class="upload-card">
+
+            <div class="upload-icon">
+                📄
+            </div>
+
+            <h2 class="upload-title">
+                Upload Resume
+            </h2>
+
+            <p class="upload-description">
+                Select your latest resume to continue.
+            </p>
+
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                <div class="file-area">
+
+                    <label for="resume">
+                        📁 Choose Resume
+                    </label>
+
+                    <input
+                        type="file"
+                        id="resume"
+                        name="resume"
+                        accept=".pdf,.doc,.docx"
+                        required
+                    >
+
+                    <div class="file-name" id="file-name">
+                        No file selected
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="upload-button"
+                >
+                    Upload Resume →
+                </button>
+
+            </form>
+
+
+            <div class="info-box">
+
+                <strong>Supported formats:</strong>
+                PDF, DOC and DOCX
+
+                <br>
+
+                Your resume will be analyzed to identify
+                relevant technical skills for job matching.
+
+            </div>
+
+        </div>
+
+
+        <div class="back">
+
+            <a href="/dashboard">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        © 2026 AI Resume Screening & Job Matching System
+
+    </footer>
+
+
+    <script>
+
+        const resumeInput = document.getElementById("resume");
+        const fileName = document.getElementById("file-name");
+
+        resumeInput.addEventListener("change", function () {
+
+            if (this.files.length > 0) {
+
+                fileName.textContent =
+                    "Selected: " + this.files[0].name;
+
+            } else {
+
+                fileName.textContent =
+                    "No file selected";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

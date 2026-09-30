@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile - AI Resume Matcher</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .dashboard-btn {
+            background: #2563eb;
+        }
+
+        .logout {
+            background: #dc2626;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.85;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 50px 25px;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+        }
+
+        /* PROFILE */
+
+        .profile-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            padding: 35px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .profile-icon {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+        }
+
+        .profile-header h2 {
+            font-size: 25px;
+            margin-bottom: 6px;
+        }
+
+        .profile-header p {
+            color: #dbeafe;
+        }
+
+        /* DETAILS */
+
+        .details {
+            padding: 30px 35px;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            background: #eff6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .detail-content {
+            flex: 1;
+        }
+
+        .detail-label {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        /* ACTIONS */
+
+        .actions {
+            padding: 0 35px 35px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: #111827;
+            color: white;
+        }
+
+        .logout-btn {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .action-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .details {
+                padding: 25px;
+            }
+
+            .actions {
+                padding: 0 25px 25px;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🤖 AI Resume Matcher
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/dashboard" class="dashboard-btn">
+                Dashboard
+            </a>
+
+            <a href="/logout" class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+        <div class="page-title">
+
+            <h1>
+                My Profile
+            </h1>
+
+            <p>
+                View your account information.
+            </p>
+
+        </div>
+
+
+        <div class="profile-card">
+
+            <!-- PROFILE HEADER -->
+
+            <div class="profile-header">
+
+                <div class="profile-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <h2>
+                        {{ user[1] }}
+                    </h2>
+
+                    <p>
+                        AI Resume Matcher Account
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROFILE DETAILS -->
+
+            <div class="details">
+
+
+                <div class="detail-row">
+
+                    <div class="detail-icon">
+                        👤
+                    </div>
+
+                    <div class="detail-content">
+
+                        <div class="detail-label">
+                            FULL NAME
+                        </div>
+
+                        <div class="detail-value">
+                            {{ user[1] }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <div class="detail-icon">
+                        ✉️
+                    </div>
+
+                    <div class="detail-content">
+
+                        <div class="detail-label">
+                            EMAIL ADDRESS
+                        </div>
+
+                        <div class="detail-value">
+                            {{ user[2] }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <div class="detail-icon">
+                        📅
+                    </div>
+
+                    <div class="detail-content">
+
+                        <div class="detail-label">
+                            ACCOUNT CREATED
+                        </div>
+
+                        <div class="detail-value">
+                            {{ user[3] }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="actions">
+
+                <a href="/dashboard" class="action-btn back-btn">
+                    ← Back to Dashboard
+                </a>
+
+                <a href="/logout" class="action-btn logout-btn">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        © 2026 AI Resume Screening & Job Matching System
+
+    </footer>
+
+</body>
+
+</html>
