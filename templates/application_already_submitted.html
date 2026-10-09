@@ -1,0 +1,484 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Application Already Submitted | AI Resume Matcher</title>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --navy: #0f172a;
+            --text: #334155;
+            --muted: #64748b;
+            --background: #f5f8fe;
+            --border: #e5eaf3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--background);
+            color: var(--navy);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            width: 100%;
+            min-height: 78px;
+            padding: 16px 5.5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--navy);
+            text-decoration: none;
+            font-size: 23px;
+            font-weight: 750;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            background: #edf3ff;
+            border-radius: 14px;
+            font-size: 25px;
+        }
+
+        .brand span:last-child {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #475569;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links .logout {
+            padding: 11px 18px;
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        /* Main section */
+        .page-wrapper {
+            min-height: calc(100vh - 78px);
+            padding: 55px 20px 70px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            background:
+                radial-gradient(
+                    circle at 5% 5%,
+                    rgba(59, 130, 246, 0.08),
+                    transparent 27%
+                ),
+                radial-gradient(
+                    circle at 95% 95%,
+                    rgba(96, 165, 250, 0.09),
+                    transparent 28%
+                ),
+                var(--background);
+        }
+
+        .content {
+            width: 100%;
+            max-width: 790px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            color: #475569;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        /* Premium card */
+        .card {
+            padding: 48px 48px 38px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 22px;
+            box-shadow: 0 20px 55px rgba(15, 23, 42, 0.07);
+        }
+
+        .status-icon {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 25px;
+            display: grid;
+            place-items: center;
+            color: var(--primary);
+            background: #eaf2ff;
+            border-radius: 26px;
+        }
+
+        .status-icon svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 7px 13px;
+            color: #1d4ed8;
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 750;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin-bottom: 16px;
+            color: var(--navy);
+            font-size: clamp(27px, 4vw, 35px);
+            font-weight: 750;
+            letter-spacing: -1px;
+            line-height: 1.25;
+        }
+
+        .description {
+            max-width: 530px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.85;
+        }
+
+        /* Buttons */
+        .actions {
+            margin: 31px 0 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            min-height: 49px;
+            padding: 14px 21px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            border: 1px solid transparent;
+            border-radius: 11px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            color: #ffffff;
+            background: linear-gradient(135deg, #3478f6, #1d4ed8);
+            box-shadow: 0 7px 17px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 10px 22px rgba(37, 99, 235, 0.26);
+        }
+
+        .btn-secondary {
+            color: #1d4ed8;
+            background: #ffffff;
+            border-color: #cbdcfb;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f8ff;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Information panel */
+        .info-panel {
+            padding: 18px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            text-align: left;
+            background: #f3f7ff;
+            border: 1px solid #e4edff;
+            border-radius: 13px;
+        }
+
+        .info-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            color: var(--primary);
+            background: #e1ebff;
+            border-radius: 9px;
+            font-weight: 800;
+        }
+
+        .info-title {
+            margin-bottom: 5px;
+            color: #1e3a8a;
+            font-size: 13px;
+            font-weight: 750;
+        }
+
+        .info-text {
+            color: #526581;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .footer {
+            margin-top: 24px;
+            color: #94a3b8;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 760px) {
+            .navbar {
+                padding: 15px 20px;
+                flex-wrap: wrap;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                width: 100%;
+                gap: 18px;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .page-wrapper {
+                padding: 30px 15px 45px;
+            }
+
+            .card {
+                padding: 35px 23px 25px;
+                border-radius: 18px;
+            }
+
+            .status-icon {
+                width: 75px;
+                height: 75px;
+                border-radius: 22px;
+            }
+
+            .status-icon svg {
+                width: 38px;
+                height: 38px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .nav-links {
+                gap: 12px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .card {
+                padding: 30px 17px 22px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a class="brand" href="{{ url_for('dashboard') }}">
+            <span class="brand-icon">🤖</span>
+            <span>AI Resume <span>Matcher</span></span>
+        </a>
+
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('jobs') }}">Job Matches</a>
+            <a href="{{ url_for('my_applications') }}">Applications</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <main class="page-wrapper">
+        <div class="content">
+
+            <a class="back-link" href="{{ url_for('jobs') }}">
+                <span aria-hidden="true">←</span>
+                Back to Job Matches
+            </a>
+
+            <section class="card">
+
+                <div class="status-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="5" width="27" height="35"
+                              rx="4" stroke="currentColor"
+                              stroke-width="2.5"/>
+                        <path d="M17 15H30M17 22H30M17 29H25"
+                              stroke="currentColor"
+                              stroke-width="2.5"
+                              stroke-linecap="round"/>
+                        <circle cx="35" cy="35" r="10" fill="#2563eb"/>
+                        <path d="M30.5 35L33.5 38L39.5 32"
+                              stroke="white"
+                              stroke-width="2.4"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
+                <div class="eyebrow">Application Status</div>
+
+                <h1>Application Already Submitted</h1>
+
+                <p class="description">
+                    You have already applied for this position.
+                    Your application is recorded in our system.
+                    You can review its current status anytime
+                    from your applications dashboard.
+                </p>
+
+                <div class="actions">
+
+                    <a class="btn btn-primary"
+                       href="{{ url_for('my_applications') }}">
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             aria-hidden="true">
+                            <rect x="5" y="3" width="14" height="18"
+                                  rx="2"/>
+                            <path d="M9 8H15M9 12H15M9 16H13"/>
+                        </svg>
+                        View My Applications
+                    </a>
+
+                    <a class="btn btn-secondary"
+                       href="{{ url_for('jobs') }}">
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             aria-hidden="true">
+                            <circle cx="10.5" cy="10.5" r="6.5"/>
+                            <path d="M16 16L21 21"/>
+                        </svg>
+                        Explore Other Jobs
+                    </a>
+
+                </div>
+
+                <div class="info-panel">
+                    <div class="info-icon" aria-hidden="true">i</div>
+
+                    <div>
+                        <div class="info-title">
+                            Thank you for your continued interest
+                        </div>
+
+                        <p class="info-text">
+                            There is no need to apply again for this position.
+                            You can monitor your application status in
+                            the My Applications section.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <footer class="footer">
+                © 2026 AI Resume Matcher · Connecting talent with opportunity
+            </footer>
+
+        </div>
+    </main>
+
+</body>
+</html>
+```

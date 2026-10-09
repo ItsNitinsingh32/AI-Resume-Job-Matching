@@ -715,7 +715,7 @@ def apply_job(job_id):
 
     if existing_application:
         cursor.close()
-        return "You have already applied for this job!"
+        return render_template("application_already_submitted.html")
 
     # Save application
     cursor.execute(
